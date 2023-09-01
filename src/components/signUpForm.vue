@@ -23,7 +23,7 @@
                         <label class="font-semibold block text-sm font-medium leading-6 text-white">Password</label>
                     </div>
                     <div class="mt-2">
-                        <input type="password" :class="{ 'border-red-500 border-2':passwordErr}" required v-model="password"
+                        <input type="password" :class="{ 'border-red-500 border-2': passwordErr }" required v-model="password"
                             class="block w-full rounded-md py-1.5 px-2 text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         <p v-if="passwordErr" class="flex items-center justify-between text-red-600">{{ passwordErr }}</p>
                     </div>
@@ -34,7 +34,7 @@
                         <label class="font-semibold block text-sm font-medium leading-6 text-white">Skills</label>
                     </div>
                     <div class="mt-2">
-                        <input type="text" v-model="tempSkills" @keyup.alt="addSkills"
+                        <input type="text" v-model="tempSkills" placeholder="Press Enter to Add Skill" @keyup="addSkills"
                             class="block w-full rounded-md border-0 py-1.5 px-2 text-slate-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         <div v-for="skill in skills" :key="skill" @click="delSkills(skill)"
                             class="mt-4 inline-flex ml-4 cursor-pointer py-1.5 px-6 rounded-full text-white bg-white bg-opacity-5">
@@ -87,7 +87,8 @@ export default {
     },
     methods: {
         addSkills(e) {
-            if (e.key === ',' && this.tempSkills) {
+            if (e.key === ' ' && this.tempSkills) {
+                this.tempSkills = this.tempSkills.replace(/,+$/, '')
                 if (!this.skills.includes(this.tempSkills)) {
                     this.skills.push(this.tempSkills)
                 }
